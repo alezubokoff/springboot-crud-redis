@@ -10,7 +10,7 @@ import java.io.Serializable;
 
 @AllArgsConstructor
 @Data
-@RedisHash(value = "persons", timeToLive = 100)
+@RedisHash(value = "persons", timeToLive = 1000)
 public class Person implements Serializable {
 
     @Id

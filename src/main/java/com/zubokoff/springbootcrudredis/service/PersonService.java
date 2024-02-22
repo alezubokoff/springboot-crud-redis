@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -17,8 +18,8 @@ public class PersonService {
     private final PersonRepository personRepository;
     private final RedisTemplate<String, Object> redisTemplate;
 
-    public void save(Person person) {
-        this.personRepository.save(person);
+    public Person save(Person person) {
+        return this.personRepository.save(person);
     }
 
     public List<String> getKeys() {
@@ -28,5 +29,14 @@ public class PersonService {
             return keys;
         }
         return null;
+    }
+
+    public Person findByKey(String id) {
+        Optional<Person> person = this.personRepository.findById(id);
+        return person.orElse(null);
+    }
+
+    public void delete(String id) {
+        this.personRepository.deleteById(id);
     }
 }
